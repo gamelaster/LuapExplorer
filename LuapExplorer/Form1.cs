@@ -357,7 +357,7 @@ namespace LuapExplorer
             fileNames.Add("EE-9B-B6-F0-2F-81-77-65", @"projects\WildStar\pov\BinCommon\Scripts\ScriptControllers\VehicleSpawnCondition.lua");
 
             #endregion
-            if (Directory.Exists("D:\\projects\\")) Directory.Delete("D:\\projects\\", true);
+            if (Directory.Exists("Temp\\projects\\")) Directory.Delete("Temp\\projects\\", true);
             if(args.Length != 0)
             {
                 LoadLuap(string.Join(" ", args));
@@ -368,7 +368,7 @@ namespace LuapExplorer
         {
             fileName = filename;
             headers = UnpackLuap(filename);
-            DirectoryInfo rootDirectoryInfo = new DirectoryInfo("D:\\projects\\WildStar\\pov\\BinCommon\\Scripts\\");
+            DirectoryInfo rootDirectoryInfo = new DirectoryInfo("Temp\\projects\\WildStar\\pov\\BinCommon\\Scripts\\");
             treeView1.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));
         }
 
@@ -400,7 +400,7 @@ namespace LuapExplorer
                     string scriptPath = GetScriptPath(br, header);
 
                     headersList.Add(scriptPath, header);
-                    string outputPath = Path.Combine("D:\\", scriptPath);
+                    string outputPath = Path.Combine("Temp\\", scriptPath);
 
                     FileInfo fi = new FileInfo(outputPath);
                     if (fi.Directory.Exists == false)
@@ -472,7 +472,7 @@ namespace LuapExplorer
             }
             foreach (KeyValuePair<string, fileheader_t> header in headers)
             {
-                FileInfo inf = new FileInfo("D:\\" + header.Key);
+                FileInfo inf = new FileInfo("Temp\\" + header.Key);
                 bw.Write(header.Value.hash);
                 //bw.Write(new byte[] { 0x0F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });
                 bw.Write(offset);
@@ -487,7 +487,7 @@ namespace LuapExplorer
             }
             foreach (KeyValuePair<string, fileheader_t> header in headers)
             {
-                bw.Write(File.ReadAllBytes("D:\\" + header.Key));
+                bw.Write(File.ReadAllBytes("Temp\\" + header.Key));
             }
             bw.Close();
             MessageBox.Show("Pack saved and repacked!", "Repacking done", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -525,7 +525,7 @@ namespace LuapExplorer
                     }
                     notSaved = false;
                 }
-                string path = "D:\\projects\\WildStar\\pov\\BinCommon";
+                string path = "Temp\\projects\\WildStar\\pov\\BinCommon";
                 string additPath = "";
                 //path += e.Node.Parent.Parent.Text + "\\" + e.Node.Parent.Text + "\\" + e.Node.Text;
                 TreeNode lastNode = e.Node;
@@ -560,7 +560,7 @@ namespace LuapExplorer
             
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "luac5.1.exe";
-            string path = "D:\\projects\\WildStar\\pov\\BinCommon";
+            string path = "Temp\\projects\\WildStar\\pov\\BinCommon";
             string additPath = "";
             //path += e.Node.Parent.Parent.Text + "\\" + e.Node.Parent.Text + "\\" + e.Node.Text;
             TreeNode lastNode = treeView1.SelectedNode;
